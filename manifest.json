@@ -1,0 +1,20 @@
+{
+  "manifest_version": "1",
+  "id": "sample-plugin",
+  "name": "Sample Plugin",
+  "version": "1.0.0",
+  "min_app_version": "0.10.0",
+  "description": "A minimal dashAI plugin to start from: one metric and its settings.",
+  "authors": [
+    { "name": "Vicente Zamora", "url": "https://github.com/vicentzamoras" }
+  ],
+  "project_urls": {
+    "Homepage": "https://github.com/vicentzamoras/dashai-sample-plugin",
+    "Issues": "https://github.com/vicentzamoras/dashai-sample-plugin/issues"
+  },
+  "components": [
+    { "class": "sample_plugin.error_rate:SampleErrorRate", "type": "Metric" }
+  ],
+  "settings": "sample_plugin.settings:Settings",
+  "dependencies": []
+}
