@@ -74,6 +74,10 @@ code, to show what the plugin will add. Change at least:
 **Components** extend one of dashAI's base classes, as dashAI's own do. This one extends
 `ClassificationMetric`.
 
+**Give your classes a prefix of your own** (`SampleErrorRate`, not `ErrorRate`). The class name
+identifies the component across dashAI, and saved runs refer to it: a name dashAI or another
+plugin already uses is refused, and renaming a class later breaks the runs saved with the old one.
+
 **Import your own modules relatively** (`from .settings import Settings`): dashAI loads each plugin
 in its own namespace and doesn't add it to `sys.path`.
 
