@@ -1,5 +1,7 @@
 """A classification metric: the share of samples the model got wrong."""
 
+import numpy as np
+
 from DashAI.back.core.utils import MultilingualString
 from DashAI.back.metrics.classification_metric import (
     ClassificationMetric,
@@ -9,6 +11,11 @@ from DashAI.back.metrics.classification_metric import (
 # Your own modules are imported relatively: dashAI loads each plugin in its
 # own namespace and does not add it to sys.path.
 from .settings import Settings
+
+
+def error_rate(true_labels, pred_labels) -> float:
+    """The computation alone, so a test can check it without dashAI running."""
+    return float((np.asarray(true_labels) != np.asarray(pred_labels)).mean())
 
 
 class SampleErrorRate(ClassificationMetric):
@@ -26,7 +33,6 @@ class SampleErrorRate(ClassificationMetric):
     @staticmethod
     def score(true_labels, probs_pred_labels) -> float:
         true_labels, pred_labels = prepare_to_metric(true_labels, probs_pred_labels)
-        error_rate = float((true_labels != pred_labels).mean())
         # Read the settings when used, not when the module is imported: the
         # job worker keeps running and picks up a change at its next job.
-        return round(error_rate, Settings.load().decimals)
+        return round(error_rate(true_labels, pred_labels), Settings.load().decimals)
